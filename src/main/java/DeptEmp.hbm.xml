@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <!-- Department Class -->
+    <class name="hib_otomto_2.Dept" table="dept" dynamic-insert="true" dynamic-update="true">
+
+        <id name="deptno" type="integer">
+            <column name="deptno"/>
+            <generator class="increment"/>
+        </id>
+
+        <property name="deptname" type="string">
+            <column name="deptname" length="255"/>
+        </property>
+
+        <property name="location" type="string">
+            <column name="location" length="255"/>
+        </property>
+
+        <bag name="empList" cascade="all">
+            <key column="deptno"/>
+            <one-to-many class="hib_otomto_2.Emp"/>
+        </bag>
+
+    </class>
+
+    <!-- Employee Class -->
+    <class name="hib_otomto_2.Emp" table="emp" dynamic-insert="true" dynamic-update="true">
+
+        <id name="eid" type="integer">
+            <column name="eid"/>
+            <generator class="increment"/>
+        </id>
+
+        <property name="ename" type="string">
+            <column name="ename" length="255"/>
+        </property>
+
+        <property name="sal" type="double">
+            <column name="sal"/>
+        </property>
+
+        <property name="desig" type="string">
+            <column name="desig" length="255"/>
+        </property>
+
+        <many-to-one name="dept" 
+                     class="hib_otomto_2.Dept" 
+                     column="deptno"/>
+
+    </class>
+
+</hibernate-mapping>
